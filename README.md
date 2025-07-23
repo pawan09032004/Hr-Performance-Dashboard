@@ -9,6 +9,26 @@ A modern, comprehensive HR Dashboard built with Next.js, React, and Tailwind CSS
 
 ---
 
+## 📸 Application Screenshots
+
+### 🔐 Login Page
+![Login Page](Login.png)
+
+### 🏠 Dashboard Homepage
+![Homepage Overview](Homepage%201.png)
+![Homepage Details](Homepage%202.png)
+
+### ➕ Add Employee
+![Add Employee Form](Add%20employee.png)
+
+### 📌 Bookmarks Management
+![Bookmarks Page](Bookmark.png)
+
+### 📊 Analytics Dashboard
+![Analytics Dashboard](Analytics.png)
+
+---
+
 ## 🚀 Setup Instructions
 
 ### Prerequisites
