@@ -1,12 +1,36 @@
 'use client'
 import { useState } from 'react'
+import { useSession, signOut } from 'next-auth/react'
 import { useApp } from '../../context/AppContext'
-import { Bell, Search, Settings, User, Moon, Sun, Menu } from 'lucide-react'
+import { Bell, Search, Settings, User, Moon, Sun, Menu, LogOut, Shield, UserCircle } from 'lucide-react'
 import { Button } from '../ui/button'
 
 export default function Navbar() {
+  const { data: session, status } = useSession()
   const { darkMode, toggleDarkMode } = useApp()
   const [isProfileOpen, setIsProfileOpen] = useState(false)
+
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: '/login' })
+  }
+
+  // Show loading state while session is being fetched
+  if (status === 'loading') {
+    return (
+      <nav className="bg-gray-900/60 backdrop-blur-xl border-b border-gray-700/50 px-6 py-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4 flex-1">
+            <div className="h-10 w-64 bg-gray-800/50 rounded-2xl animate-pulse"></div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <div className="h-10 w-10 bg-gray-800/50 rounded-xl animate-pulse"></div>
+            <div className="h-10 w-10 bg-gray-800/50 rounded-xl animate-pulse"></div>
+            <div className="h-10 w-24 bg-gray-800/50 rounded-2xl animate-pulse"></div>
+          </div>
+        </div>
+      </nav>
+    )
+  }
 
   return (
     <nav className="bg-gray-900/60 backdrop-blur-xl border-b border-gray-700/50 px-6 py-4">
@@ -76,34 +100,67 @@ export default function Navbar() {
                 className="relative flex items-center space-x-3 px-4 py-2 text-gray-300 hover:text-white hover:bg-gray-800/50 rounded-2xl transition-all duration-300 border border-transparent hover:border-gray-600/30"
               >
                 <div className="h-10 w-10 bg-gradient-to-br from-lime-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
-                  <User className="h-5 w-5 text-white" />
+                  {session?.user?.role === 'admin' ? (
+                    <Shield className="h-5 w-5 text-white" />
+                  ) : (
+                    <User className="h-5 w-5 text-white" />
+                  )}
                 </div>
                 <div className="hidden md:block text-left">
-                  <div className="text-sm font-semibold">HR Manager</div>
-                  <div className="text-xs text-gray-400">Online</div>
+                  <div className="text-sm font-semibold">{session?.user?.name || 'User'}</div>
+                  <div className="text-xs text-gray-400 capitalize">
+                    {session?.user?.role || 'Member'} • Online
+                  </div>
                 </div>
               </Button>
             </div>
             
             {isProfileOpen && (
-              <div className="absolute right-0 mt-3 w-56 bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-700/50 py-3 z-50">
+              <div className="absolute right-0 mt-3 w-64 bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-700/50 py-3 z-50">
                 <div className="px-4 py-3 border-b border-gray-700/50">
-                  <p className="text-sm font-semibold text-white">HR Manager</p>
-                  <p className="text-xs text-gray-400">manager@company.com</p>
+                  <div className="flex items-center space-x-3">
+                    <div className="h-12 w-12 bg-gradient-to-br from-lime-400 to-emerald-500 rounded-xl flex items-center justify-center">
+                      {session?.user?.role === 'admin' ? (
+                        <Shield className="h-6 w-6 text-white" />
+                      ) : (
+                        <User className="h-6 w-6 text-white" />
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{session?.user?.name}</p>
+                      <p className="text-xs text-gray-400">{session?.user?.email}</p>
+                      <div className="flex items-center space-x-1 mt-1">
+                        <div className="h-2 w-2 bg-lime-400 rounded-full"></div>
+                        <span className="text-xs text-lime-400 capitalize">{session?.user?.role}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <a href="#" className="block px-4 py-3 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white transition-colors">
-                  Profile Settings
-                </a>
-                <a href="#" className="block px-4 py-3 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white transition-colors">
-                  Account Preferences
-                </a>
-                <a href="#" className="block px-4 py-3 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white transition-colors">
-                  Notifications
-                </a>
+                
+                <div className="py-2">
+                  <button className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white transition-colors">
+                    <UserCircle className="h-4 w-4" />
+                    <span>Profile Settings</span>
+                  </button>
+                  <button className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white transition-colors">
+                    <Settings className="h-4 w-4" />
+                    <span>Account Preferences</span>
+                  </button>
+                  <button className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white transition-colors">
+                    <Bell className="h-4 w-4" />
+                    <span>Notifications</span>
+                  </button>
+                </div>
+                
                 <hr className="my-2 border-gray-700/50" />
-                <a href="#" className="block px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors">
-                  Sign Out
-                </a>
+                
+                <button 
+                  onClick={handleSignOut}
+                  className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span>Sign Out</span>
+                </button>
               </div>
             )}
           </div>

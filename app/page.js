@@ -1,12 +1,14 @@
 'use client'
 import { useEffect } from 'react'
+import { useSession } from 'next-auth/react'
 import { useApp } from '../context/AppContext'
 import EmployeeCard from '../components/EmployeeCard'
 import SearchAndFilter from '../components/SearchAndFilter'
 import { useEmployees } from '../hooks/useEmployees'
-import { Users, Star, TrendingUp, Award, ChevronDown } from 'lucide-react'
+import { Users, Star, TrendingUp, Award, ChevronDown, Shield, User } from 'lucide-react'
 
 export default function Dashboard() {
+  const { data: session, status } = useSession()
   const { 
     employees, 
     searchTerm, 
@@ -20,8 +22,10 @@ export default function Dashboard() {
   const { fetchEmployees, filteredEmployees } = useEmployees()
 
   useEffect(() => {
-    fetchEmployees()
-  }, [])
+    if (session) {
+      fetchEmployees()
+    }
+  }, [session])
 
   // Calculate stats
   const averageRating = employees.length > 0 
@@ -29,6 +33,20 @@ export default function Dashboard() {
     : 0
   const topPerformers = employees.filter(emp => emp.rating >= 4.5).length
   const totalBookmarks = bookmarkedEmployees.length
+
+  // Show loading state while authenticating
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full border-4 border-lime-400/20 border-t-lime-400 animate-spin mb-4">
+            <div className="w-8 h-8 border-4 border-transparent border-t-emerald-400 rounded-full animate-spin animation-delay-150"></div>
+          </div>
+          <p className="text-gray-400">Authenticating...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (loading) {
     return (
@@ -47,6 +65,19 @@ export default function Dashboard() {
           <div className="relative px-6 py-16 sm:py-24">
             <div className="max-w-7xl mx-auto text-center">
               <div className="mb-8">
+                <div className="flex items-center justify-center space-x-3 mb-6">
+                  <div className="h-12 w-12 bg-gradient-to-br from-lime-400 to-emerald-500 rounded-xl flex items-center justify-center">
+                    {session?.user?.role === 'admin' ? (
+                      <Shield className="h-6 w-6 text-white" />
+                    ) : (
+                      <User className="h-6 w-6 text-white" />
+                    )}
+                  </div>
+                  <div className="text-left">
+                    <h2 className="text-2xl font-bold text-white">Welcome back, {session?.user?.name}!</h2>
+                    <p className="text-lime-400 capitalize">{session?.user?.role} Dashboard</p>
+                  </div>
+                </div>
                 <h1 className="text-5xl sm:text-7xl font-bold mb-6">
                   <span className="text-white">Experience the most advanced</span>
                   <br />
@@ -183,6 +214,19 @@ export default function Dashboard() {
         <div className="relative px-6 py-16 sm:py-24">
           <div className="max-w-7xl mx-auto text-center">
             <div className="mb-8">
+              <div className="flex items-center justify-center space-x-4 mb-6">
+                <div className="h-14 w-14 bg-gradient-to-br from-lime-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
+                  {session?.user?.role === 'admin' ? (
+                    <Shield className="h-7 w-7 text-white" />
+                  ) : (
+                    <User className="h-7 w-7 text-white" />
+                  )}
+                </div>
+                <div className="text-left">
+                  <h2 className="text-3xl font-bold text-white">Welcome back, {session?.user?.name}!</h2>
+                  <p className="text-lime-400 capitalize text-lg">{session?.user?.role} Dashboard</p>
+                </div>
+              </div>
               <h1 className="text-5xl sm:text-7xl font-bold mb-6">
                 <span className="text-white">Experience the most advanced</span>
                 <br />
