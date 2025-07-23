@@ -3,24 +3,16 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { 
   Home, 
-  Users, 
   Bookmark, 
-  BarChart3, 
-  UserPlus,
-  Award,
-  Briefcase
+  BarChart3
 } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { useApp } from '../../context/AppContext'
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: Home },
-  { name: 'Employees', href: '/employees', icon: Users },
   { name: 'Bookmarks', href: '/bookmarks', icon: Bookmark, badge: 'bookmarkedEmployees' },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
-  { name: 'Performance', href: '/performance', icon: Award },
-  { name: 'Projects', href: '/projects', icon: Briefcase },
-  { name: 'Add Employee', href: '/add-employee', icon: UserPlus },
 ]
 
 export default function Sidebar() {
