@@ -13,6 +13,32 @@ const initialState = {
   darkMode: false,
   loading: false,
   error: null,
+  notifications: [
+    {
+      id: 1,
+      title: "New Employee Onboarded",
+      message: "Sarah Johnson has joined the Marketing team",
+      time: "2 minutes ago",
+      type: "success",
+      read: false
+    },
+    {
+      id: 2,
+      title: "Performance Review Due",
+      message: "3 employees need their quarterly reviews completed",
+      time: "1 hour ago",
+      type: "warning",
+      read: false
+    },
+    {
+      id: 3,
+      title: "Team Meeting Reminder",
+      message: "Weekly standup meeting starts in 30 minutes",
+      time: "3 hours ago",
+      type: "info",
+      read: false
+    }
+  ]
 }
 
 // Reducer function
@@ -41,6 +67,28 @@ function appReducer(state, action) {
       }
     case 'TOGGLE_DARK_MODE':
       return { ...state, darkMode: !state.darkMode }
+    case 'MARK_NOTIFICATION_READ':
+      return {
+        ...state,
+        notifications: state.notifications.map(notification =>
+          notification.id === action.payload
+            ? { ...notification, read: true }
+            : notification
+        )
+      }
+    case 'MARK_ALL_NOTIFICATIONS_READ':
+      return {
+        ...state,
+        notifications: state.notifications.map(notification => ({
+          ...notification,
+          read: true
+        }))
+      }
+    case 'REMOVE_NOTIFICATION':
+      return {
+        ...state,
+        notifications: state.notifications.filter(notification => notification.id !== action.payload)
+      }
     default:
       return state
   }
@@ -70,6 +118,9 @@ export function AppProvider({ children }) {
     setFilterRating: (rating) => dispatch({ type: 'SET_FILTER_RATING', payload: rating }),
     toggleBookmark: (id) => dispatch({ type: 'TOGGLE_BOOKMARK', payload: id }),
     toggleDarkMode: () => dispatch({ type: 'TOGGLE_DARK_MODE' }),
+    markNotificationRead: (id) => dispatch({ type: 'MARK_NOTIFICATION_READ', payload: id }),
+    markAllNotificationsRead: () => dispatch({ type: 'MARK_ALL_NOTIFICATIONS_READ' }),
+    removeNotification: (id) => dispatch({ type: 'REMOVE_NOTIFICATION', payload: id }),
   }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
