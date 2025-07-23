@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Optimize for Vercel deployment
+  swcMinify: true,
+  
   // Configure headers for CSP that allows Chart.js to work
   async headers() {
     return [
