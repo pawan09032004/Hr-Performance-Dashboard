@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { useApp } from '../../context/AppContext'
-import { Bell, User, Moon, Sun, Menu, LogOut, Shield, UserCircle } from 'lucide-react'
+import { Bell, User, Moon, Sun, Menu, LogOut, Shield } from 'lucide-react'
 import { Button } from '../ui/button'
 
 export default function Navbar() {
@@ -117,21 +117,6 @@ export default function Navbar() {
                       </div>
                     </div>
                   </div>
-                </div>
-                
-                <div className="py-2">
-                  <button className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white transition-colors">
-                    <UserCircle className="h-4 w-4" />
-                    <span>Profile Settings</span>
-                  </button>
-                  <button className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white transition-colors">
-                    <Settings className="h-4 w-4" />
-                    <span>Account Preferences</span>
-                  </button>
-                  <button className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-gray-300 hover:bg-gray-800/50 hover:text-white transition-colors">
-                    <Bell className="h-4 w-4" />
-                    <span>Notifications</span>
-                  </button>
                 </div>
                 
                 <hr className="my-2 border-gray-700/50" />
