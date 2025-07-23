@@ -5,10 +5,12 @@ import { Button } from './ui/button'
 import { Badge } from './ui/badge'
 import { Card } from './ui/card'
 import { useApp } from '../context/AppContext'
+import CongratsAlert from './ui/CongratsAlert'
 
 export default function EmployeeProfileHeader({ employee }) {
   const { bookmarkedEmployees, toggleBookmark } = useApp()
   const [isPromoting, setIsPromoting] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
   
   const isBookmarked = bookmarkedEmployees.includes(employee.id)
 
@@ -16,6 +18,7 @@ export default function EmployeeProfileHeader({ employee }) {
     setIsPromoting(true)
     setTimeout(() => {
       setIsPromoting(false)
+      setShowAlert(true)
     }, 1500)
   }
 
@@ -56,7 +59,8 @@ export default function EmployeeProfileHeader({ employee }) {
   }
 
   return (
-    <Card className="overflow-hidden">
+    <>
+      <Card className="overflow-hidden">
       <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-8">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
           {/* Profile Info */}
@@ -219,5 +223,13 @@ export default function EmployeeProfileHeader({ employee }) {
         </div>
       </div>
     </Card>
+
+    {/* Congratulations Alert */}
+    <CongratsAlert
+      isVisible={showAlert}
+      onClose={() => setShowAlert(false)}
+      employeeName={`${employee.firstName} ${employee.lastName}`}
+    />
+  </>
   )
 } 

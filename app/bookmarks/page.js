@@ -19,6 +19,7 @@ import {
 import { Card } from '../../components/ui/card'
 import { Button } from '../../components/ui/button'
 import { Badge } from '../../components/ui/badge'
+import CongratsAlert from '../../components/ui/CongratsAlert'
 import Link from 'next/link'
 
 export default function BookmarksPage() {
@@ -26,6 +27,8 @@ export default function BookmarksPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [sortBy, setSortBy] = useState('name') // name, rating, department, dateAdded
   const [filterDepartment, setFilterDepartment] = useState('')
+  const [showAlert, setShowAlert] = useState(false)
+  const [promotedEmployee, setPromotedEmployee] = useState(null)
 
   // Get bookmarked employee details
   const bookmarkedEmployeeDetails = employees.filter(emp => 
@@ -66,7 +69,8 @@ export default function BookmarksPage() {
 
   const handlePromote = (employee) => {
     // Mock promote action - in real app would call API
-    alert(`Promoting ${employee.firstName} ${employee.lastName}! 🎉`)
+    setPromotedEmployee(employee)
+    setShowAlert(true)
   }
 
   const handleAssignToProject = (employee) => {
@@ -348,6 +352,13 @@ export default function BookmarksPage() {
           )}
         </div>
       </div>
+
+      {/* Congratulations Alert */}
+      <CongratsAlert
+        isVisible={showAlert}
+        onClose={() => setShowAlert(false)}
+        employeeName={promotedEmployee ? `${promotedEmployee.firstName} ${promotedEmployee.lastName}` : ''}
+      />
     </div>
   )
 } 

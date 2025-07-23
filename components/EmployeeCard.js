@@ -6,10 +6,12 @@ import { Button } from './ui/button'
 import { Badge } from './ui/badge'
 import { Card } from './ui/card'
 import { useApp } from '../context/AppContext'
+import CongratsAlert from './ui/CongratsAlert'
 
 export default function EmployeeCard({ employee }) {
   const { bookmarkedEmployees, toggleBookmark } = useApp()
   const [isPromoting, setIsPromoting] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
   
   const isBookmarked = bookmarkedEmployees.includes(employee.id)
   
@@ -18,7 +20,7 @@ export default function EmployeeCard({ employee }) {
     // Simulate promotion process
     setTimeout(() => {
       setIsPromoting(false)
-      // You could add a toast notification here
+      setShowAlert(true)
     }, 1500)
   }
 
@@ -195,6 +197,13 @@ export default function EmployeeCard({ employee }) {
           </div>
         </div>
       </Card>
+
+      {/* Congratulations Alert */}
+      <CongratsAlert
+        isVisible={showAlert}
+        onClose={() => setShowAlert(false)}
+        employeeName={`${employee.firstName} ${employee.lastName}`}
+      />
     </div>
   )
 } 
