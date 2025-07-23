@@ -5,7 +5,8 @@ import { useApp } from '../context/AppContext'
 import EmployeeCard from '../components/EmployeeCard'
 import SearchAndFilter from '../components/SearchAndFilter'
 import { useEmployees } from '../hooks/useEmployees'
-import { Users, Star, TrendingUp, Award, ChevronDown, Shield, User } from 'lucide-react'
+import { Users, Star, TrendingUp, Award, ChevronDown, Shield, User, Bookmark } from 'lucide-react'
+import { Badge } from '../components/ui/badge'
 
 export default function Dashboard() {
   const { data: session, status } = useSession()
@@ -86,8 +87,7 @@ export default function Dashboard() {
                   </span>
                 </h1>
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                  Manage and track employee performance across your organization with 
-                  cutting-edge analytics and intuitive design
+                Streamline workforce performance tracking with powerful insights and modern design
                 </p>
               </div>
               
@@ -235,8 +235,7 @@ export default function Dashboard() {
                 </span>
               </h1>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Manage and track employee performance across your organization with 
-                cutting-edge analytics and intuitive design
+              Streamline workforce performance tracking with powerful insights and modern design
               </p>
             </div>
             
@@ -262,7 +261,10 @@ export default function Dashboard() {
                   <div className="p-3 bg-lime-400/10 rounded-xl">
                     <Users className="w-6 h-6 text-lime-400" />
                   </div>
-                  <span className="text-2xl">👥</span>
+                  <Badge className="bg-lime-400/10 text-lime-300 border-lime-400/30 font-semibold">
+                    <Users className="w-3 h-3 mr-1" />
+                    Team
+                  </Badge>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-1">{employees.length}</h3>
                 <p className="text-gray-400 text-sm">Total Employees</p>
@@ -277,7 +279,10 @@ export default function Dashboard() {
                   <div className="p-3 bg-emerald-400/10 rounded-xl">
                     <Star className="w-6 h-6 text-emerald-400" />
                   </div>
-                  <span className="text-2xl">⭐</span>
+                  <Badge className="bg-emerald-400/10 text-emerald-300 border-emerald-400/30 font-semibold">
+                    <Star className="w-3 h-3 mr-1" />
+                    Rating
+                  </Badge>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-1">{averageRating}</h3>
                 <p className="text-gray-400 text-sm">Average Rating</p>
@@ -292,7 +297,10 @@ export default function Dashboard() {
                   <div className="p-3 bg-green-400/10 rounded-xl">
                     <Award className="w-6 h-6 text-green-400" />
                   </div>
-                  <span className="text-2xl">🏆</span>
+                  <Badge className="bg-green-400/10 text-green-300 border-green-400/30 font-semibold">
+                    <Award className="w-3 h-3 mr-1" />
+                    Elite
+                  </Badge>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-1">{topPerformers}</h3>
                 <p className="text-gray-400 text-sm">Top Performers</p>
@@ -307,7 +315,10 @@ export default function Dashboard() {
                   <div className="p-3 bg-yellow-400/10 rounded-xl">
                     <TrendingUp className="w-6 h-6 text-yellow-400" />
                   </div>
-                  <span className="text-2xl">📌</span>
+                  <Badge className="bg-yellow-400/10 text-yellow-300 border-yellow-400/30 font-semibold">
+                    <Bookmark className="w-3 h-3 mr-1" />`
+                    Saved
+                  </Badge>
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-1">{totalBookmarks}</h3>
                 <p className="text-gray-400 text-sm">Bookmarked</p>

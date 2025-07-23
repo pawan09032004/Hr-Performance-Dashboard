@@ -142,11 +142,25 @@ export default function EmployeeDetailPage() {
 
   if (loading) {
     return (
-      <div className="p-6">
-        <div className="flex items-center justify-center h-64">
-          <div className="flex items-center space-x-2">
-            <Loader2 className="h-6 w-6 animate-spin text-primary-600" />
-            <span className="text-gray-600 dark:text-gray-300">Loading employee details...</span>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, #10b981 0%, transparent 50%),
+                            radial-gradient(circle at 75% 75%, #06d6a0 0%, transparent 50%),
+                            radial-gradient(circle at 50% 50%, #84cc16 0%, transparent 50%)`
+          }}></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative px-6 py-12">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center justify-center h-64">
+              <div className="flex items-center space-x-2">
+                <Loader2 className="h-6 w-6 animate-spin text-lime-400" />
+                <span className="text-gray-300">Loading employee details...</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -155,17 +169,34 @@ export default function EmployeeDetailPage() {
 
   if (error || !employee) {
     return (
-      <div className="p-6">
-        <div className="max-w-md mx-auto text-center">
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
-            <h3 className="text-red-800 dark:text-red-200 font-medium mb-2">Employee Not Found</h3>
-            <p className="text-red-600 dark:text-red-300 text-sm mb-4">
-              {error || 'The requested employee could not be found.'}
-            </p>
-            <Button onClick={() => router.push('/')} className="w-full">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Dashboard
-            </Button>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, #10b981 0%, transparent 50%),
+                            radial-gradient(circle at 75% 75%, #06d6a0 0%, transparent 50%),
+                            radial-gradient(circle at 50% 50%, #84cc16 0%, transparent 50%)`
+          }}></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative px-6 py-12">
+          <div className="max-w-7xl mx-auto">
+            <div className="max-w-md mx-auto text-center">
+              <div className="group relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-red-400/10 to-pink-400/10 rounded-3xl blur-xl"></div>
+                <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8">
+                  <h3 className="text-red-300 font-medium mb-2 text-xl">Employee Not Found</h3>
+                  <p className="text-red-200/80 text-sm mb-6">
+                    {error || 'The requested employee could not be found.'}
+                  </p>
+                  <Button onClick={() => router.push('/')} className="w-full">
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Dashboard
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -173,24 +204,38 @@ export default function EmployeeDetailPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
-      {/* Back Button */}
-      <div className="flex items-center">
-        <Button
-          variant="ghost"
-          onClick={() => router.back()}
-          className="flex items-center space-x-2"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          <span>Back</span>
-        </Button>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 25% 25%, #10b981 0%, transparent 50%),
+                          radial-gradient(circle at 75% 75%, #06d6a0 0%, transparent 50%),
+                          radial-gradient(circle at 50% 50%, #84cc16 0%, transparent 50%)`
+        }}></div>
       </div>
 
-      {/* Employee Profile Header */}
-      <EmployeeProfileHeader employee={employee} />
+      {/* Content */}
+      <div className="relative px-6 py-12">
+        <div className="max-w-7xl mx-auto space-y-6">
+          {/* Back Button */}
+          <div className="flex items-center">
+            <Button
+              variant="ghost"
+              onClick={() => router.back()}
+              className="flex items-center space-x-2"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>Back</span>
+            </Button>
+          </div>
 
-      {/* Tabbed Content */}
-      <EmployeeTabs employee={employee} />
+          {/* Employee Profile Header */}
+          <EmployeeProfileHeader employee={employee} />
+
+          {/* Tabbed Content */}
+          <EmployeeTabs employee={employee} />
+        </div>
+      </div>
     </div>
   )
 } 

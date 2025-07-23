@@ -2,12 +2,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { useApp } from '../../context/AppContext'
-import { Bell, User, Moon, Sun, Menu, LogOut, Shield, X, Check, CheckCheck } from 'lucide-react'
+import { Bell, User, Menu, LogOut, Shield, X, Check, CheckCheck } from 'lucide-react'
 import { Button } from '../ui/button'
 
 export default function Navbar() {
   const { data: session, status } = useSession()
-  const { darkMode, toggleDarkMode, notifications, markNotificationRead, markAllNotificationsRead, removeNotification } = useApp()
+  const { notifications, markNotificationRead, markAllNotificationsRead, removeNotification } = useApp()
   const [isProfileOpen, setIsProfileOpen] = useState(false)
   const [isNotificationOpen, setIsNotificationOpen] = useState(false)
   const profileRef = useRef(null)
@@ -63,23 +63,6 @@ export default function Navbar() {
 
         {/* Right side - Actions */}
         <div className="flex items-center space-x-3">
-          {/* Dark mode toggle */}
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-lime-400/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleDarkMode}
-              className="relative p-3 text-gray-300 hover:text-yellow-400 hover:bg-yellow-400/10 rounded-xl transition-all duration-300"
-            >
-              {darkMode ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
-          </div>
-
           {/* Notifications */}
           <div className="relative" ref={notificationRef}>
             <div className="relative group">
@@ -223,36 +206,37 @@ export default function Navbar() {
             </div>
             
             {isProfileOpen && (
-              <div className="absolute right-0 mt-3 w-64 bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-700/50 py-3 z-[9999]">
-                <div className="px-4 py-3 border-b border-gray-700/50">
-                  <div className="flex items-center space-x-3">
-                    <div className="h-12 w-12 bg-gradient-to-br from-lime-400 to-emerald-500 rounded-xl flex items-center justify-center">
+              <div className="absolute right-0 mt-3 w-72 bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-700/50 overflow-hidden z-[9999]">
+                <div className="px-6 py-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="h-14 w-14 bg-gradient-to-br from-lime-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg">
                       {session?.user?.role === 'admin' ? (
-                        <Shield className="h-6 w-6 text-white" />
+                        <Shield className="h-7 w-7 text-white" />
                       ) : (
-                        <User className="h-6 w-6 text-white" />
+                        <User className="h-7 w-7 text-white" />
                       )}
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold text-white">{session?.user?.name}</p>
-                      <p className="text-xs text-gray-400">{session?.user?.email}</p>
-                      <div className="flex items-center space-x-1 mt-1">
+                    <div className="flex-1">
+                      <p className="text-base font-semibold text-white">{session?.user?.name}</p>
+                      <p className="text-sm text-gray-400">{session?.user?.email}</p>
+                      <div className="flex items-center space-x-2 mt-2">
                         <div className="h-2 w-2 bg-lime-400 rounded-full"></div>
-                        <span className="text-xs text-lime-400 capitalize">{session?.user?.role}</span>
+                        <span className="text-xs text-lime-400 capitalize font-medium">{session?.user?.role}</span>
+                        <span className="text-xs text-gray-500">• Online</span>
                       </div>
                     </div>
                   </div>
                 </div>
                 
-                <hr className="my-2 border-gray-700/50" />
-                
-                <button 
-                  onClick={handleSignOut}
-                  className="w-full flex items-center space-x-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
-                >
-                  <LogOut className="h-4 w-4" />
-                  <span>Sign Out</span>
-                </button>
+                <div className="bg-gray-800/30 px-6 py-3">
+                  <button 
+                    onClick={handleSignOut}
+                    className="w-full flex items-center justify-center space-x-3 px-4 py-2.5 text-sm text-red-400 hover:bg-red-500/10 hover:text-red-300 rounded-xl transition-all duration-200 font-medium"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
               </div>
             )}
           </div>

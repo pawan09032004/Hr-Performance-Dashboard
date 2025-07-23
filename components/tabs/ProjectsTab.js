@@ -22,7 +22,7 @@ export default function ProjectsTab({ employee }) {
       case 'On Hold':
         return <Pause className="h-4 w-4 text-yellow-500" />
       case 'Planning':
-        return <Clock className="h-4 w-4 text-gray-500" />
+        return <Clock className="h-4 w-4 text-gray-400" />
       default:
         return <AlertCircle className="h-4 w-4 text-red-500" />
     }
@@ -83,8 +83,8 @@ export default function ProjectsTab({ employee }) {
               <Play className="h-6 w-6 text-blue-600 dark:text-blue-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Active Projects</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-gray-400">Active Projects</p>
+              <p className="text-2xl font-semibold text-white">
                 {employee.projects.filter(p => p.status === 'In Progress').length}
               </p>
             </div>
@@ -97,8 +97,8 @@ export default function ProjectsTab({ employee }) {
               <CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Completed</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-gray-400">Completed</p>
+              <p className="text-2xl font-semibold text-white">
                 {employee.projects.filter(p => p.status === 'Completed').length}
               </p>
             </div>
@@ -111,8 +111,8 @@ export default function ProjectsTab({ employee }) {
               <Pause className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">On Hold</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-gray-400">On Hold</p>
+              <p className="text-2xl font-semibold text-white">
                 {employee.projects.filter(p => p.status === 'On Hold').length}
               </p>
             </div>
@@ -125,8 +125,8 @@ export default function ProjectsTab({ employee }) {
               <TrendingUp className="h-6 w-6 text-purple-600 dark:text-purple-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Avg. Progress</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-gray-400">Avg. Progress</p>
+              <p className="text-2xl font-semibold text-white">
                 {Math.round(employee.projects.reduce((sum, p) => sum + p.progress, 0) / employee.projects.length)}%
               </p>
             </div>
@@ -141,7 +141,7 @@ export default function ProjectsTab({ employee }) {
 
         return (
           <div key={status}>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+            <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
               {getStatusIcon(status)}
               <span className="ml-2">{status} Projects ({projects.length})</span>
             </h3>
@@ -150,10 +150,10 @@ export default function ProjectsTab({ employee }) {
                 <Card key={project.id} className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                      <h4 className="text-lg font-semibold text-white mb-1">
                         {project.name}
                       </h4>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-sm text-gray-400">
                         Project ID: {project.id}
                       </p>
                     </div>
@@ -162,17 +162,17 @@ export default function ProjectsTab({ employee }) {
                     </Badge>
                   </div>
 
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                                      <p className="text-gray-300 text-sm mb-4">
                     {project.description}
                   </p>
 
                   {/* Progress Bar */}
                   <div className="mb-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      <span className="text-sm font-medium text-white">
                         Progress
                       </span>
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
+                      <span className="text-sm text-gray-300">
                         {project.progress}%
                       </span>
                     </div>
@@ -186,13 +186,13 @@ export default function ProjectsTab({ employee }) {
 
                   {/* Project Details */}
                   <div className="space-y-3">
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                    <div className="flex items-center text-sm text-gray-300">
                       <Calendar className="h-4 w-4 mr-2 text-gray-400" />
                       <span>
                         {formatDate(project.startDate)} - {formatDate(project.endDate)}
                       </span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+                    <div className="flex items-center text-sm text-gray-300">
                       <Users className="h-4 w-4 mr-2 text-gray-400" />
                       <span>Team: {project.team.join(', ')}</span>
                     </div>
@@ -218,7 +218,7 @@ export default function ProjectsTab({ employee }) {
 
       {/* Quick Actions */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
+                  <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
         <div className="flex flex-wrap gap-3">
           <Button variant="outline" size="sm">
             Assign New Project

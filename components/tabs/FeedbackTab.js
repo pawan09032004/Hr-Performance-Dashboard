@@ -30,7 +30,7 @@ export default function FeedbackTab({ employee }) {
         className={`h-4 w-4 ${
           index < rating
             ? 'text-yellow-400 fill-current'
-            : 'text-gray-300 dark:text-gray-600'
+            : 'text-gray-500'
         }`}
       />
     ))
@@ -102,8 +102,8 @@ export default function FeedbackTab({ employee }) {
               <Star className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Average Rating</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-gray-400">Average Rating</p>
+              <p className="text-2xl font-semibold text-white">
                 {averageRating.toFixed(1)}/5
               </p>
             </div>
@@ -116,8 +116,8 @@ export default function FeedbackTab({ employee }) {
               <MessageCircle className="h-6 w-6 text-blue-600 dark:text-blue-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Reviews</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-gray-400">Total Reviews</p>
+              <p className="text-2xl font-semibold text-white">
                 {employee.feedback.length}
               </p>
             </div>
@@ -130,8 +130,8 @@ export default function FeedbackTab({ employee }) {
               <ThumbsUp className="h-6 w-6 text-green-600 dark:text-green-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Positive Reviews</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-gray-400">Positive Reviews</p>
+              <p className="text-2xl font-semibold text-white">
                 {employee.feedback.filter(f => f.rating >= 4).length}
               </p>
             </div>
@@ -141,7 +141,7 @@ export default function FeedbackTab({ employee }) {
 
       {/* Add Feedback Button */}
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <h3 className="text-lg font-semibold text-white">
           Recent Feedback & Reviews
         </h3>
         <Button onClick={() => setShowFeedbackForm(true)}>
@@ -255,10 +255,10 @@ export default function FeedbackTab({ employee }) {
                   <User className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white">
+                  <h4 className="font-semibold text-white">
                     {feedback.reviewer}
                   </h4>
-                  <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center space-x-2 text-sm text-gray-400">
                     <Calendar className="h-4 w-4" />
                     <span>{formatDate(feedback.date)}</span>
                   </div>
@@ -277,14 +277,14 @@ export default function FeedbackTab({ employee }) {
             {/* Rating Display */}
             <div className="flex items-center space-x-2 mb-4">
               {renderStars(Math.floor(feedback.rating))}
-              <span className="text-sm text-gray-600 dark:text-gray-300">
+              <span className="text-sm text-gray-300">
                 ({feedback.rating} out of 5)
               </span>
             </div>
 
             {/* Comments */}
             <div className="mb-4">
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p className="text-gray-300 leading-relaxed">
                 {feedback.comments}
               </p>
             </div>
@@ -292,7 +292,7 @@ export default function FeedbackTab({ employee }) {
             {/* Strengths and Improvements */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <h5 className="font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+                <h5 className="font-medium text-white mb-2 flex items-center">
                   <ThumbsUp className="h-4 w-4 mr-2 text-green-500" />
                   Strengths
                 </h5>
@@ -305,7 +305,7 @@ export default function FeedbackTab({ employee }) {
                 </div>
               </div>
               <div>
-                <h5 className="font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+                <h5 className="font-medium text-white mb-2 flex items-center">
                   <ThumbsDown className="h-4 w-4 mr-2 text-orange-500" />
                   Areas for Improvement
                 </h5>

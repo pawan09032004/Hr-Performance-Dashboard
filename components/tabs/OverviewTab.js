@@ -33,8 +33,8 @@ export default function OverviewTab({ employee }) {
               <TrendingUp className="h-6 w-6 text-primary-600 dark:text-primary-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Current Rating</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">{employee.rating}/5</p>
+              <p className="text-sm font-medium text-gray-400">Current Rating</p>
+              <p className="text-2xl font-semibold text-white">{employee.rating}/5</p>
             </div>
           </div>
         </Card>
@@ -45,8 +45,8 @@ export default function OverviewTab({ employee }) {
               <Target className="h-6 w-6 text-green-600 dark:text-green-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Goal Completion</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">{completionRate}%</p>
+              <p className="text-sm font-medium text-gray-400">Goal Completion</p>
+              <p className="text-2xl font-semibold text-white">{completionRate}%</p>
             </div>
           </div>
         </Card>
@@ -57,8 +57,8 @@ export default function OverviewTab({ employee }) {
               <Award className="h-6 w-6 text-blue-600 dark:text-blue-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Projects</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">{employee.projects?.length || 0}</p>
+              <p className="text-sm font-medium text-gray-400">Total Projects</p>
+              <p className="text-2xl font-semibold text-white">{employee.projects?.length || 0}</p>
             </div>
           </div>
         </Card>
@@ -69,8 +69,8 @@ export default function OverviewTab({ employee }) {
               <Clock className="h-6 w-6 text-purple-600 dark:text-purple-400" />
             </div>
             <div className="ml-3">
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Years at Company</p>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-sm font-medium text-gray-400">Years at Company</p>
+              <p className="text-2xl font-semibold text-white">
                 {Math.round((Date.now() - new Date(employee.startDate)) / (365 * 24 * 60 * 60 * 1000))}
               </p>
             </div>
@@ -81,14 +81,14 @@ export default function OverviewTab({ employee }) {
       {/* Performance History */}
       <div className="lg:col-span-2">
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          <h3 className="text-lg font-semibold text-white mb-4">
             Performance History (Last 12 Months)
           </h3>
           <div className="space-y-4">
             {employee.performanceHistory?.map((month, index) => (
               <div key={index} className="flex items-center justify-between py-2">
                 <div className="flex items-center space-x-3">
-                  <div className="text-sm font-medium text-gray-900 dark:text-white w-8">
+                  <div className="text-sm font-medium text-white w-8">
                     {month.month}
                   </div>
                   <div className="flex-1">
@@ -99,13 +99,13 @@ export default function OverviewTab({ employee }) {
                           style={{ width: `${(month.rating / 5) * 100}%` }}
                         />
                       </div>
-                      <span className="text-sm text-gray-600 dark:text-gray-300">
+                      <span className="text-sm text-gray-300">
                         {month.rating.toFixed(1)}
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+                <div className="text-sm text-gray-400">
                   {month.completed}/{month.goals} goals
                 </div>
               </div>
@@ -117,34 +117,34 @@ export default function OverviewTab({ employee }) {
       {/* Recent Activity */}
       <div>
         <Card className="p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Recent Activity</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
           <div className="space-y-4">
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0 w-2 h-2 bg-green-500 rounded-full mt-2"></div>
               <div>
-                <p className="text-sm text-gray-900 dark:text-white">Completed Q4 Performance Review</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{formatDate(employee.feedback?.[0]?.date || new Date())}</p>
+                <p className="text-sm text-white">Completed Q4 Performance Review</p>
+                <p className="text-xs text-gray-400">{formatDate(employee.feedback?.[0]?.date || new Date())}</p>
               </div>
             </div>
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0 w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
               <div>
-                <p className="text-sm text-gray-900 dark:text-white">Started new project assignment</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{formatDate(employee.projects?.[0]?.startDate || new Date())}</p>
+                <p className="text-sm text-white">Started new project assignment</p>
+                <p className="text-xs text-gray-400">{formatDate(employee.projects?.[0]?.startDate || new Date())}</p>
               </div>
             </div>
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0 w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
               <div>
-                <p className="text-sm text-gray-900 dark:text-white">Attended team training session</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">2 weeks ago</p>
+                <p className="text-sm text-white">Attended team training session</p>
+                <p className="text-xs text-gray-400">2 weeks ago</p>
               </div>
             </div>
             <div className="flex items-start space-x-3">
               <div className="flex-shrink-0 w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
               <div>
-                <p className="text-sm text-gray-900 dark:text-white">Received peer recognition</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">3 weeks ago</p>
+                <p className="text-sm text-white">Received peer recognition</p>
+                <p className="text-xs text-gray-400">3 weeks ago</p>
               </div>
             </div>
           </div>
@@ -152,20 +152,20 @@ export default function OverviewTab({ employee }) {
 
         {/* Goals & Achievements */}
         <Card className="p-6 mt-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Current Goals</h3>
+          <h3 className="text-lg font-semibold text-white mb-4">Current Goals</h3>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-900 dark:text-white">Q1 Sales Target</span>
+              <span className="text-sm text-white">Q1 Sales Target</span>
               <Badge variant="secondary">In Progress</Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-900 dark:text-white">Leadership Training</span>
+              <span className="text-sm text-white">Leadership Training</span>
               <Badge className="bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300">
                 Completed
               </Badge>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-900 dark:text-white">Team Mentoring</span>
+              <span className="text-sm text-white">Team Mentoring</span>
               <Badge variant="secondary">Ongoing</Badge>
             </div>
           </div>

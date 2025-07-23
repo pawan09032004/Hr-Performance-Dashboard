@@ -26,7 +26,7 @@ export default function EmployeeProfileHeader({ employee }) {
         className={`h-5 w-5 ${
           index < rating
             ? 'text-yellow-400 fill-current'
-            : 'text-gray-300 dark:text-gray-600'
+            : 'text-gray-500'
         }`}
       />
     ))
@@ -111,7 +111,7 @@ export default function EmployeeProfileHeader({ employee }) {
         {/* Performance Rating */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-semibold text-white">
               Performance Rating
             </h3>
             <Badge className={getRatingColor(employee.rating)}>
@@ -120,7 +120,7 @@ export default function EmployeeProfileHeader({ employee }) {
           </div>
           <div className="flex items-center space-x-2">
             {renderStars(Math.floor(employee.rating))}
-            <span className="text-gray-600 dark:text-gray-300 ml-2">
+            <span className="text-gray-300 ml-2">
               ({employee.rating} out of 5.0)
             </span>
           </div>
@@ -129,8 +129,8 @@ export default function EmployeeProfileHeader({ employee }) {
         {/* Bio */}
         {employee.bio && (
           <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">About</h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{employee.bio}</p>
+            <h3 className="text-lg font-semibold text-white mb-3">About</h3>
+            <p className="text-gray-300 leading-relaxed">{employee.bio}</p>
           </div>
         )}
 
@@ -138,17 +138,17 @@ export default function EmployeeProfileHeader({ employee }) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Contact Information */}
           <div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Contact Information</h4>
+            <h4 className="font-semibold text-white mb-3">Contact Information</h4>
             <div className="space-y-3">
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center text-sm text-gray-300">
                 <Mail className="h-4 w-4 mr-3 text-gray-400" />
                 <span>{employee.email}</span>
               </div>
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center text-sm text-gray-300">
                 <Phone className="h-4 w-4 mr-3 text-gray-400" />
                 <span>{employee.phone}</span>
               </div>
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center text-sm text-gray-300">
                 <MapPin className="h-4 w-4 mr-3 text-gray-400" />
                 <span>{employee.address?.address}, {employee.address?.city}, {employee.address?.state}</span>
               </div>
@@ -157,26 +157,26 @@ export default function EmployeeProfileHeader({ employee }) {
 
           {/* Work Information */}
           <div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Work Information</h4>
+            <h4 className="font-semibold text-white mb-3">Work Information</h4>
             <div className="space-y-3">
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center text-sm text-gray-300">
                 <Calendar className="h-4 w-4 mr-3 text-gray-400" />
                 <div>
-                  <span className="text-gray-500">Start Date:</span>
+                  <span className="text-gray-400">Start Date:</span>
                   <span className="ml-1">{formatDate(employee.startDate)}</span>
                 </div>
               </div>
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center text-sm text-gray-300">
                 <Users className="h-4 w-4 mr-3 text-gray-400" />
                 <div>
-                  <span className="text-gray-500">Team:</span>
+                  <span className="text-gray-400">Team:</span>
                   <span className="ml-1">{employee.team}</span>
                 </div>
               </div>
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center text-sm text-gray-300">
                 <Building className="h-4 w-4 mr-3 text-gray-400" />
                 <div>
-                  <span className="text-gray-500">Location:</span>
+                  <span className="text-gray-400">Location:</span>
                   <span className="ml-1">{employee.location}</span>
                 </div>
               </div>
@@ -185,21 +185,21 @@ export default function EmployeeProfileHeader({ employee }) {
 
           {/* Additional Details */}
           <div>
-            <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Additional Details</h4>
+            <h4 className="font-semibold text-white mb-3">Additional Details</h4>
             <div className="space-y-3">
-              <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center text-sm text-gray-300">
                 <DollarSign className="h-4 w-4 mr-3 text-gray-400" />
                 <div>
-                  <span className="text-gray-500">Salary:</span>
+                  <span className="text-gray-400">Salary:</span>
                   <span className="ml-1 font-medium">{formatSalary(employee.salary)}</span>
                 </div>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">
-                <span className="text-gray-500">Age:</span>
+              <div className="text-sm text-gray-300">
+                <span className="text-gray-400">Age:</span>
                 <span className="ml-1">{employee.age} years</span>
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">
-                <span className="text-gray-500">Manager:</span>
+              <div className="text-sm text-gray-300">
+                <span className="text-gray-400">Manager:</span>
                 <span className="ml-1">{employee.manager}</span>
               </div>
             </div>
@@ -208,7 +208,7 @@ export default function EmployeeProfileHeader({ employee }) {
 
         {/* Skills */}
         <div className="mt-6">
-          <h4 className="font-semibold text-gray-900 dark:text-white mb-3">Skills</h4>
+          <h4 className="font-semibold text-white mb-3">Skills</h4>
           <div className="flex flex-wrap gap-2">
             {employee.skills?.map((skill, index) => (
               <Badge key={index} variant="secondary" className="text-xs">
