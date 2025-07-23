@@ -29,19 +29,22 @@ export default function Sidebar() {
   const { bookmarkedEmployees } = useApp()
 
   return (
-    <div className="hidden md:flex md:w-64 md:flex-col">
-      <div className="flex flex-col flex-grow pt-5 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 overflow-y-auto">
+    <div className="hidden md:flex md:w-72 md:flex-col">
+      <div className="flex flex-col flex-grow pt-6 bg-gray-900/60 backdrop-blur-xl border-r border-gray-700/50 overflow-y-auto">
         {/* Logo */}
-        <div className="flex items-center flex-shrink-0 px-6 mb-8">
-          <div className="flex items-center space-x-3">
-            <div className="h-10 w-10 bg-gradient-to-br from-primary-400 to-primary-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">HR</span>
+        <div className="flex items-center flex-shrink-0 px-6 mb-10">
+          <div className="flex items-center space-x-4">
+            <div className="relative">
+              <div className="h-12 w-12 bg-gradient-to-br from-lime-400 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-xl">HR</span>
+              </div>
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-gray-900"></div>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-lime-400 via-emerald-400 to-green-400 bg-clip-text text-transparent">
                 HR Dashboard
               </h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-gray-400 font-medium">
                 Performance Hub
               </p>
             </div>
@@ -49,50 +52,65 @@ export default function Sidebar() {
         </div>
 
         {/* Navigation */}
-        <nav className="mt-5 flex-1 px-4 space-y-2">
+        <nav className="mt-8 flex-1 px-4 space-y-2">
           {navigation.map((item) => {
             const isActive = pathname === item.href
             const badgeCount = item.badge === 'bookmarkedEmployees' ? bookmarkedEmployees.length : 0
             
             return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`
-                  group flex items-center justify-between px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200
-                  ${isActive
-                    ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 border-l-4 border-primary-500'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
-                  }
-                `}
-              >
-                <div className="flex items-center">
-                  <item.icon
-                    className={`mr-3 h-5 w-5 transition-colors ${
-                      isActive ? 'text-primary-600 dark:text-primary-400' : 'text-gray-400 group-hover:text-gray-500'
-                    }`}
-                  />
-                  {item.name}
-                </div>
-                {badgeCount > 0 && (
-                  <Badge variant="secondary" className="ml-auto">
-                    {badgeCount}
-                  </Badge>
+              <div key={item.name} className="relative group">
+                {isActive && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-lime-400/20 to-emerald-400/20 rounded-2xl blur-lg"></div>
                 )}
-              </Link>
+                <Link
+                  href={item.href}
+                  className={`
+                    relative group flex items-center justify-between px-4 py-3.5 text-sm font-semibold rounded-2xl transition-all duration-300
+                    ${isActive
+                      ? 'bg-lime-400/10 text-lime-300 border border-lime-400/30 shadow-lg'
+                      : 'text-gray-300 hover:bg-gray-800/50 hover:text-white hover:border-gray-600/30 border border-transparent'
+                    }
+                  `}
+                >
+                  <div className="flex items-center">
+                    <div className={`p-2 rounded-xl mr-3 ${
+                      isActive ? 'bg-lime-400/20' : 'bg-gray-800/50 group-hover:bg-gray-700/50'
+                    } transition-all duration-300`}>
+                      <item.icon
+                        className={`h-5 w-5 transition-colors ${
+                          isActive ? 'text-lime-400' : 'text-gray-400 group-hover:text-gray-300'
+                        }`}
+                      />
+                    </div>
+                    {item.name}
+                  </div>
+                  {badgeCount > 0 && (
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-lime-400/20 rounded-full blur-md"></div>
+                      <Badge className="relative bg-yellow-400/10 text-yellow-300 border-yellow-400/30 font-semibold">
+                        {badgeCount}
+                      </Badge>
+                    </div>
+                  )}
+                </Link>
+              </div>
             )
           })}
         </nav>
 
         {/* Bottom section */}
-        <div className="flex-shrink-0 p-4 border-t border-gray-200 dark:border-gray-700">
-          <Link
-            href="/settings"
-            className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-          >
-            <Settings className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500" />
-            Settings
-          </Link>
+        <div className="flex-shrink-0 p-4 border-t border-gray-700/50 mt-4">
+          <div className="relative group">
+            <Link
+              href="/settings"
+              className="group flex items-center px-4 py-3 text-sm font-semibold text-gray-300 rounded-2xl hover:bg-gray-800/50 hover:text-white transition-all duration-300 border border-transparent hover:border-gray-600/30"
+            >
+              <div className="p-2 bg-gray-800/50 rounded-xl mr-3 group-hover:bg-gray-700/50 transition-all duration-300">
+                <Settings className="h-5 w-5 text-gray-400 group-hover:text-gray-300" />
+              </div>
+              Settings
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useApp } from '../context/AppContext'
 import EmployeeCard from '../components/EmployeeCard'
 import SearchAndFilter from '../components/SearchAndFilter'
 import { useEmployees } from '../hooks/useEmployees'
+import { Users, Star, TrendingUp, Award, ChevronDown } from 'lucide-react'
 
 export default function Dashboard() {
   const { 
@@ -12,7 +13,8 @@ export default function Dashboard() {
     filterDepartment, 
     filterRating,
     loading,
-    error
+    error,
+    bookmarkedEmployees
   } = useApp()
   
   const { fetchEmployees, filteredEmployees } = useEmployees()
@@ -21,11 +23,21 @@ export default function Dashboard() {
     fetchEmployees()
   }, [])
 
+  // Calculate stats
+  const averageRating = employees.length > 0 
+    ? (employees.reduce((sum, emp) => sum + emp.rating, 0) / employees.length).toFixed(1)
+    : 0
+  const topPerformers = employees.filter(emp => emp.rating >= 4.5).length
+  const totalBookmarks = bookmarkedEmployees.length
+
   if (loading) {
     return (
-      <div className="p-6">
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+        <div className="flex items-center justify-center h-screen">
+          <div className="relative">
+            <div className="w-16 h-16 border-4 border-lime-400/20 border-t-lime-400 rounded-full animate-spin"></div>
+            <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-emerald-400 rounded-full animate-spin animation-delay-150"></div>
+          </div>
         </div>
       </div>
     )
@@ -33,54 +45,156 @@ export default function Dashboard() {
 
   if (error) {
     return (
-      <div className="p-6">
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-          <h3 className="text-red-800 dark:text-red-200 font-medium">Error loading employees</h3>
-          <p className="text-red-600 dark:text-red-300 text-sm mt-1">{error}</p>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black p-6">
+        <div className="max-w-md mx-auto mt-20">
+          <div className="bg-red-900/20 backdrop-blur-xl border border-red-500/20 rounded-2xl p-6">
+            <h3 className="text-red-400 font-semibold text-lg mb-2">Error loading employees</h3>
+            <p className="text-red-300/80 text-sm">{error}</p>
+          </div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="p-6 space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Employee Dashboard
-          </h1>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Manage and track employee performance across your organization
-          </p>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, #10b981 0%, transparent 50%),
+                            radial-gradient(circle at 75% 75%, #06d6a0 0%, transparent 50%),
+                            radial-gradient(circle at 50% 50%, #84cc16 0%, transparent 50%)`
+          }}></div>
         </div>
-        <div className="mt-4 sm:mt-0">
-          <div className="text-sm text-gray-500 dark:text-gray-400">
-            Total Employees: <span className="font-medium text-gray-900 dark:text-white">{employees.length}</span>
+        
+        <div className="relative px-6 py-16 sm:py-24">
+          <div className="max-w-7xl mx-auto text-center">
+            <div className="mb-8">
+              <h1 className="text-5xl sm:text-7xl font-bold mb-6">
+                <span className="text-white">Experience the most advanced</span>
+                <br />
+                <span className="bg-gradient-to-r from-lime-400 via-emerald-400 to-green-400 bg-clip-text text-transparent">
+                  HR Dashboard
+                </span>
+              </h1>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Manage and track employee performance across your organization with 
+                cutting-edge analytics and intuitive design
+              </p>
+            </div>
+            
+            {/* Scroll Indicator */}
+            <div className="animate-bounce mt-12">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-lime-400/30">
+                <ChevronDown className="w-6 h-6 text-lime-400" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Search and Filter */}
-      <SearchAndFilter />
+      {/* Stats Section */}
+      <div className="px-6 py-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {/* Total Employees */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-lime-400/20 to-emerald-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+              <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:border-lime-400/30 transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-3 bg-lime-400/10 rounded-xl">
+                    <Users className="w-6 h-6 text-lime-400" />
+                  </div>
+                  <span className="text-2xl">👥</span>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-1">{employees.length}</h3>
+                <p className="text-gray-400 text-sm">Total Employees</p>
+              </div>
+            </div>
 
-      {/* Employee Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredEmployees.length > 0 ? (
-          filteredEmployees.map((employee) => (
-            <EmployeeCard key={employee.id} employee={employee} />
-          ))
-        ) : (
-          <div className="col-span-full text-center py-12">
-            <div className="text-gray-400 dark:text-gray-500">
-              <svg className="mx-auto h-12 w-12 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-              <h3 className="text-lg font-medium mb-2">No employees found</h3>
-              <p className="text-sm">Try adjusting your search or filter criteria</p>
+            {/* Average Rating */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-green-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+              <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:border-emerald-400/30 transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-3 bg-emerald-400/10 rounded-xl">
+                    <Star className="w-6 h-6 text-emerald-400" />
+                  </div>
+                  <span className="text-2xl">⭐</span>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-1">{averageRating}</h3>
+                <p className="text-gray-400 text-sm">Average Rating</p>
+              </div>
+            </div>
+
+            {/* Top Performers */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400/20 to-lime-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+              <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:border-green-400/30 transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-3 bg-green-400/10 rounded-xl">
+                    <Award className="w-6 h-6 text-green-400" />
+                  </div>
+                  <span className="text-2xl">🏆</span>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-1">{topPerformers}</h3>
+                <p className="text-gray-400 text-sm">Top Performers</p>
+              </div>
+            </div>
+
+            {/* Bookmarked */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-lime-400/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+              <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:border-yellow-400/30 transition-all duration-300">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-3 bg-yellow-400/10 rounded-xl">
+                    <TrendingUp className="w-6 h-6 text-yellow-400" />
+                  </div>
+                  <span className="text-2xl">📌</span>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-1">{totalBookmarks}</h3>
+                <p className="text-gray-400 text-sm">Bookmarked</p>
+              </div>
             </div>
           </div>
-        )}
+
+          {/* Search and Filter */}
+          <div className="mb-12">
+            <SearchAndFilter />
+          </div>
+
+          {/* Employee Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredEmployees.length > 0 ? (
+              filteredEmployees.map((employee, index) => (
+                <div 
+                  key={employee.id} 
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <EmployeeCard employee={employee} />
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full">
+                <div className="text-center py-20">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-lime-400/10 to-emerald-400/10 rounded-3xl blur-2xl"></div>
+                    <div className="relative bg-gray-900/40 backdrop-blur-xl border border-gray-700/30 rounded-3xl p-12">
+                      <div className="text-6xl mb-6">🔍</div>
+                      <h3 className="text-2xl font-bold text-white mb-4">No employees found</h3>
+                      <p className="text-gray-400 text-lg max-w-md mx-auto">
+                        Try adjusting your search or filter criteria to find the team members you're looking for
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   )

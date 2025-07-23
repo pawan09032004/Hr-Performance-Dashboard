@@ -25,110 +25,129 @@ export default function SearchAndFilter() {
   const hasActiveFilters = searchTerm || filterDepartment || filterRating
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0 lg:space-x-4">
-        {/* Search Bar */}
-        <div className="flex-1 max-w-md">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search by name, email, or department..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-            />
+    <div className="relative group">
+      {/* Glow Effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-lime-400/10 to-emerald-400/10 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+      
+      <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 hover:border-lime-400/30 transition-all duration-300">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-6 lg:space-y-0 lg:space-x-6">
+          {/* Search Bar */}
+          <div className="flex-1 max-w-2xl">
+            <div className="relative group">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 group-focus-within:text-lime-400 transition-colors" />
+              <input
+                type="text"
+                placeholder="Search by name, email, or department..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-12 pr-6 py-4 bg-gray-800/50 border border-gray-600/50 rounded-2xl text-white placeholder-gray-400 focus:ring-2 focus:ring-lime-400/50 focus:border-lime-400/50 focus:bg-gray-800/70 transition-all duration-200 text-lg"
+              />
+            </div>
+          </div>
+
+          {/* Filters */}
+          <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            {/* Department Filter */}
+            <div className="relative group">
+              <select
+                value={filterDepartment}
+                onChange={(e) => setFilterDepartment(e.target.value)}
+                className="appearance-none bg-gray-800/50 border border-gray-600/50 rounded-2xl px-6 py-4 pr-12 text-white focus:ring-2 focus:ring-emerald-400/50 focus:border-emerald-400/50 focus:bg-gray-800/70 transition-all duration-200 cursor-pointer hover:border-emerald-400/30"
+              >
+                <option value="">All Departments</option>
+                {departments.map((dept) => (
+                  <option key={dept} value={dept}>
+                    {dept}
+                  </option>
+                ))}
+              </select>
+              <Filter className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none group-focus-within:text-emerald-400 transition-colors" />
+            </div>
+
+            {/* Rating Filter */}
+            <div className="relative group">
+              <select
+                value={filterRating}
+                onChange={(e) => setFilterRating(e.target.value)}
+                className="appearance-none bg-gray-800/50 border border-gray-600/50 rounded-2xl px-6 py-4 pr-12 text-white focus:ring-2 focus:ring-green-400/50 focus:border-green-400/50 focus:bg-gray-800/70 transition-all duration-200 cursor-pointer hover:border-green-400/30"
+              >
+                <option value="">All Ratings</option>
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="2">2 Stars</option>
+              </select>
+              <Filter className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 pointer-events-none group-focus-within:text-green-400 transition-colors" />
+            </div>
+
+            {/* Clear Filters */}
+            {hasActiveFilters && (
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-red-400/20 to-pink-400/20 rounded-2xl blur-lg group-hover:blur-xl transition-all duration-300"></div>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={clearFilters}
+                  className="relative bg-gray-800/50 border-gray-600/50 text-white hover:bg-red-500/20 hover:border-red-400/50 hover:text-red-400 transition-all duration-300 px-6 py-4 rounded-2xl"
+                >
+                  <X className="h-5 w-5 mr-2" />
+                  <span>Clear All</span>
+                </Button>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-          {/* Department Filter */}
-          <div className="relative">
-            <select
-              value={filterDepartment}
-              onChange={(e) => setFilterDepartment(e.target.value)}
-              className="appearance-none bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2.5 pr-10 text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-            >
-              <option value="">All Departments</option>
-              {departments.map((dept) => (
-                <option key={dept} value={dept}>
-                  {dept}
-                </option>
-              ))}
-            </select>
-            <Filter className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
+        {/* Active Filters Display */}
+        {hasActiveFilters && (
+          <div className="mt-6 pt-6 border-t border-gray-700/50">
+            <div className="flex flex-wrap gap-3">
+              {searchTerm && (
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-lime-400/20 to-emerald-400/20 rounded-full blur-md group-hover:blur-lg transition-all duration-300"></div>
+                  <div className="relative inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-lime-400/10 text-lime-300 border border-lime-400/30">
+                    Search: "{searchTerm}"
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className="ml-3 hover:text-lime-400 transition-colors"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+              {filterDepartment && (
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-green-400/20 rounded-full blur-md group-hover:blur-lg transition-all duration-300"></div>
+                  <div className="relative inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-emerald-400/10 text-emerald-300 border border-emerald-400/30">
+                    Department: {filterDepartment}
+                    <button
+                      onClick={() => setFilterDepartment('')}
+                      className="ml-3 hover:text-emerald-400 transition-colors"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+              {filterRating && (
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-lime-400/20 rounded-full blur-md group-hover:blur-lg transition-all duration-300"></div>
+                  <div className="relative inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-yellow-400/10 text-yellow-300 border border-yellow-400/30">
+                    Rating: {filterRating} Stars
+                    <button
+                      onClick={() => setFilterRating('')}
+                      className="ml-3 hover:text-yellow-400 transition-colors"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
-
-          {/* Rating Filter */}
-          <div className="relative">
-            <select
-              value={filterRating}
-              onChange={(e) => setFilterRating(e.target.value)}
-              className="appearance-none bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2.5 pr-10 text-sm text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors"
-            >
-              <option value="">All Ratings</option>
-              <option value="5">5 Stars</option>
-              <option value="4">4 Stars</option>
-              <option value="3">3 Stars</option>
-              <option value="2">2 Stars</option>
-            </select>
-            <Filter className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-          </div>
-
-          {/* Clear Filters */}
-          {hasActiveFilters && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={clearFilters}
-              className="flex items-center space-x-2"
-            >
-              <X className="h-4 w-4" />
-              <span>Clear</span>
-            </Button>
-          )}
-        </div>
+        )}
       </div>
-
-      {/* Active Filters Display */}
-      {hasActiveFilters && (
-        <div className="mt-3 flex flex-wrap gap-2">
-          {searchTerm && (
-            <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900/20 dark:text-primary-300">
-              Search: "{searchTerm}"
-              <button
-                onClick={() => setSearchTerm('')}
-                className="ml-2 hover:text-primary-600"
-              >
-                <X className="h-3 w-3" />
-              </button>
-            </div>
-          )}
-          {filterDepartment && (
-            <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
-              Department: {filterDepartment}
-              <button
-                onClick={() => setFilterDepartment('')}
-                className="ml-2 hover:text-blue-600"
-              >
-                <X className="h-3 w-3" />
-              </button>
-            </div>
-          )}
-          {filterRating && (
-            <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300">
-              Rating: {filterRating} Stars
-              <button
-                onClick={() => setFilterRating('')}
-                className="ml-2 hover:text-yellow-600"
-              >
-                <X className="h-3 w-3" />
-              </button>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   )
 } 
