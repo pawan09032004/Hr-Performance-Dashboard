@@ -61,7 +61,7 @@ export default function FeedbackTab({ employee }) {
   const handleSubmitFeedback = (e) => {
     e.preventDefault()
     // Here you would typically submit to an API
-    console.log('Submitting feedback:', newFeedback)
+    // Feedback submitted successfully
     setShowFeedbackForm(false)
     setNewFeedback({
       type: 'Performance Review',

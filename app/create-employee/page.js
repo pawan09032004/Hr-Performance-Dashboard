@@ -162,7 +162,7 @@ export default function CreateEmployeePage() {
       }, 2000)
       
     } catch (error) {
-      console.error('Error creating employee:', error)
+      // Log error in production monitoring system
       setErrors({ submit: 'Failed to create employee. Please try again.' })
     } finally {
       setLoading(false)

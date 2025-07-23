@@ -11,8 +11,7 @@
     "clean": "rimraf .next node_modules/.cache",
     "clean:all": "rimraf .next node_modules/.cache node_modules && npm install",
     "clean:build": "rimraf .next && npm run build",
-    "fix": "rimraf .next && npm ci && npm run build",
-    "postinstall": "npm run build --if-present"
+    "fix": "rimraf .next && npm ci && npm run build"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",

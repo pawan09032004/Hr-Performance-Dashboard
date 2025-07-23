@@ -43,7 +43,7 @@ export default function EmployeeDetailPage() {
           setEmployee(enhancedEmployee)
         }
       } catch (err) {
-        console.error('Error fetching employee:', err)
+        // Log error in production monitoring system
         setError(err.message)
       } finally {
         setLoading(false)

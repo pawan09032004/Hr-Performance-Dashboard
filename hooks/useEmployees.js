@@ -97,7 +97,7 @@ export function useEmployees() {
       
       setEmployees(enhancedEmployees)
     } catch (error) {
-      console.error('Error fetching employees:', error)
+      // Log error in production monitoring system
       setError(error.message)
       
       // Fallback to mock data if API fails

@@ -1,8 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Ensure proper build output
-  output: 'standalone',
-  
   // Configure headers for CSP that allows Chart.js to work
   async headers() {
     return [
