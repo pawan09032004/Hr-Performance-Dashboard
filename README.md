@@ -9,6 +9,10 @@ A modern, comprehensive HR Dashboard built with Next.js, React, and Tailwind CSS
 
 ---
 
+## 🚀 Live Demo
+
+Check out the deployed app here: [HR Performance Dashboard](https://vercel.com/pawan-meenas-projects-584c26b1/hr-performance-dashboard-y5he/43APguvBcGb6g4az7d3m8cFwHbJr)
+
 ## 📸 Application Screenshots
 
 ### 🔐 Login Page
