@@ -144,7 +144,7 @@ export default function BookmarksPage() {
               </div>
               <h3 className="text-2xl font-bold text-white mb-4">No Bookmarked Employees</h3>
               <p className="text-gray-400 text-lg mb-8 max-w-md mx-auto">
-                You haven't bookmarked any employees yet. Start by exploring the dashboard and bookmark employees you want to keep track of.
+                You haven&apos;t bookmarked any employees yet. Start by exploring the dashboard and bookmark employees you want to keep track of.
               </p>
               <Link href="/">
                 <Button className="bg-gradient-to-r from-lime-400 to-emerald-500 hover:from-lime-500 hover:to-emerald-600 text-black font-semibold px-8 py-3 rounded-xl">
@@ -236,10 +236,11 @@ export default function BookmarksPage() {
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center space-x-4">
                         <div className="relative">
-                          <img
-                            src={employee.image || `https://ui-avatars.com/api/?name=${employee.firstName}+${employee.lastName}&background=random`}
-                            alt={`${employee.firstName} ${employee.lastName}`}
-                            className="w-16 h-16 rounded-2xl object-cover border-2 border-gray-700/50"
+                          <div 
+                            className="w-16 h-16 rounded-2xl bg-cover bg-center border-2 border-gray-700/50"
+                            style={{ 
+                              backgroundImage: `url(${employee.image || `https://ui-avatars.com/api/?name=${employee.firstName}+${employee.lastName}&background=random`})` 
+                            }}
                           />
                           <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-gray-900"></div>
                         </div>

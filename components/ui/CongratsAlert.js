@@ -1,10 +1,17 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { X, Trophy, CheckCircle } from 'lucide-react'
 import { Button } from './button'
 
 export default function CongratsAlert({ isVisible, onClose, employeeName }) {
   const [show, setShow] = useState(false)
+
+  const handleClose = useCallback(() => {
+    setShow(false)
+    setTimeout(() => {
+      onClose()
+    }, 300)
+  }, [onClose])
 
   useEffect(() => {
     if (isVisible) {
@@ -15,14 +22,7 @@ export default function CongratsAlert({ isVisible, onClose, employeeName }) {
       }, 5000)
       return () => clearTimeout(timer)
     }
-  }, [isVisible])
-
-  const handleClose = () => {
-    setShow(false)
-    setTimeout(() => {
-      onClose()
-    }, 300)
-  }
+  }, [isVisible, handleClose])
 
   if (!isVisible) return null
 

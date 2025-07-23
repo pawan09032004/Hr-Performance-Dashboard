@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useCallback } from 'react'
 import { useApp } from '../context/AppContext'
 
 const departments = [
@@ -82,7 +82,7 @@ export function useEmployees() {
     filterRating
   } = useApp()
 
-  const fetchEmployees = async () => {
+  const fetchEmployees = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -118,7 +118,7 @@ export function useEmployees() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [setEmployees, setLoading, setError])
 
   const filteredEmployees = useMemo(() => {
     let filtered = [...employees]

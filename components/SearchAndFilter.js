@@ -137,7 +137,7 @@ export default function SearchAndFilter() {
                   <div className="group relative">
                     <div className="absolute inset-0 bg-gradient-to-r from-lime-400/20 to-emerald-400/20 rounded-full blur-md group-hover:blur-lg transition-all duration-300"></div>
                     <div className="relative inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-lime-400/10 text-lime-300 border border-lime-400/30">
-                      Search: "{searchTerm}"
+                      Search: &quot;{searchTerm}&quot;
                       <button
                         onClick={() => setSearchTerm('')}
                         className="ml-3 hover:text-lime-400 transition-colors"

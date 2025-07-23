@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import { Button } from '../../../components/ui/button'
@@ -53,10 +53,10 @@ export default function EmployeeDetailPage() {
     if (employeeId) {
       fetchEmployeeData()
     }
-  }, [employeeId, employees, globalLoading])
+  }, [employeeId, employees, globalLoading, enhanceEmployeeData])
 
   // Enhanced mock data for detailed view
-  const enhanceEmployeeData = async (baseEmployee) => {
+  const enhanceEmployeeData = useCallback(async (baseEmployee) => {
     const departments = [
       'Engineering', 'Marketing', 'Sales', 'HR', 'Finance', 
       'Operations', 'Design', 'Product', 'Legal', 'Support'
@@ -82,7 +82,7 @@ export default function EmployeeDetailPage() {
       skills: generateSkills(department),
       bio: `Experienced ${department.toLowerCase()} professional with a passion for innovation and team collaboration. Consistently delivers high-quality results and mentors junior team members.`
     }
-  }
+  }, [])
 
   const generatePerformanceHistory = (id) => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

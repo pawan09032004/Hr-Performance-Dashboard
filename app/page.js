@@ -26,7 +26,7 @@ export default function Dashboard() {
     if (session) {
       fetchEmployees()
     }
-  }, [session])
+  }, [session, fetchEmployees])
 
   // Calculate stats
   const averageRating = employees.length > 0 
@@ -316,7 +316,7 @@ export default function Dashboard() {
                     <TrendingUp className="w-6 h-6 text-yellow-400" />
                   </div>
                   <Badge className="bg-yellow-400/10 text-yellow-300 border-yellow-400/30 font-semibold">
-                    <Bookmark className="w-3 h-3 mr-1" />`
+                    <Bookmark className="w-3 h-3 mr-1" />
                     Saved
                   </Badge>
                 </div>

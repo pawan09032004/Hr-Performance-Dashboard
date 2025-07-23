@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, useReducer, useEffect } from 'react'
+import { createContext, useContext, useReducer, useEffect, useMemo } from 'react'
 
 const AppContext = createContext()
 
@@ -106,10 +106,8 @@ export function AppProvider({ children }) {
     }
   }, [state.darkMode])
 
-  const value = {
-    ...state,
-    dispatch,
-    // Action creators
+  // Memoize action creators to prevent unnecessary re-renders
+  const actions = useMemo(() => ({
     setEmployees: (employees) => dispatch({ type: 'SET_EMPLOYEES', payload: employees }),
     setLoading: (loading) => dispatch({ type: 'SET_LOADING', payload: loading }),
     setError: (error) => dispatch({ type: 'SET_ERROR', payload: error }),
@@ -121,7 +119,13 @@ export function AppProvider({ children }) {
     markNotificationRead: (id) => dispatch({ type: 'MARK_NOTIFICATION_READ', payload: id }),
     markAllNotificationsRead: () => dispatch({ type: 'MARK_ALL_NOTIFICATIONS_READ' }),
     removeNotification: (id) => dispatch({ type: 'REMOVE_NOTIFICATION', payload: id }),
-  }
+  }), [])
+
+  const value = useMemo(() => ({
+    ...state,
+    dispatch,
+    ...actions
+  }), [state, actions])
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }
