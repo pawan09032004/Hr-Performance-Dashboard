@@ -4,13 +4,15 @@ import Link from 'next/link'
 import { 
   Home, 
   Bookmark, 
-  BarChart3
+  BarChart3,
+  UserPlus
 } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { useApp } from '../../context/AppContext'
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: Home },
+  { name: 'Add Employee', href: '/create-employee', icon: UserPlus },
   { name: 'Bookmarks', href: '/bookmarks', icon: Bookmark, badge: 'bookmarkedEmployees' },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
 ]
