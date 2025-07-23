@@ -33,10 +33,121 @@ export default function Dashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black">
-        <div className="flex items-center justify-center h-screen">
-          <div className="relative">
-            <div className="w-16 h-16 border-4 border-lime-400/20 border-t-lime-400 rounded-full animate-spin"></div>
-            <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-emerald-400 rounded-full animate-spin animation-delay-150"></div>
+        {/* Hero Section */}
+        <div className="relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 25% 25%, #10b981 0%, transparent 50%),
+                              radial-gradient(circle at 75% 75%, #06d6a0 0%, transparent 50%),
+                              radial-gradient(circle at 50% 50%, #84cc16 0%, transparent 50%)`
+            }}></div>
+          </div>
+          
+          <div className="relative px-6 py-16 sm:py-24">
+            <div className="max-w-7xl mx-auto text-center">
+              <div className="mb-8">
+                <h1 className="text-5xl sm:text-7xl font-bold mb-6">
+                  <span className="text-white">Experience the most advanced</span>
+                  <br />
+                  <span className="bg-gradient-to-r from-lime-400 via-emerald-400 to-green-400 bg-clip-text text-transparent">
+                    HR Dashboard
+                  </span>
+                </h1>
+                <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                  Manage and track employee performance across your organization with 
+                  cutting-edge analytics and intuitive design
+                </p>
+              </div>
+              
+              {/* Loading Indicator */}
+              <div className="animate-bounce mt-12">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full border-4 border-lime-400/20 border-t-lime-400 animate-spin">
+                  <div className="w-8 h-8 border-4 border-transparent border-t-emerald-400 rounded-full animate-spin animation-delay-150"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Loading Skeleton */}
+        <div className="px-6 pb-12">
+          <div className="max-w-7xl mx-auto">
+            {/* Skeleton Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <div key={index} className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-r from-lime-400/10 to-emerald-400/10 rounded-2xl blur-xl"></div>
+                  <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="p-3 bg-gray-800/50 rounded-xl">
+                        <div className="w-6 h-6 bg-gray-700/50 rounded animate-pulse"></div>
+                      </div>
+                      <div className="text-2xl">⏳</div>
+                    </div>
+                    <div className="h-8 bg-gray-700/50 rounded animate-pulse mb-1"></div>
+                    <div className="h-4 bg-gray-800/50 rounded animate-pulse"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Skeleton Search */}
+            <div className="mb-12">
+              <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8">
+                <div className="h-16 bg-gray-800/50 rounded-2xl animate-pulse"></div>
+              </div>
+            </div>
+
+            {/* Skeleton Employee Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <div key={index} className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-lime-400/5 to-emerald-400/5 rounded-3xl blur-xl"></div>
+                  <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-6">
+                    {/* Skeleton Header */}
+                    <div className="flex items-start justify-between mb-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="h-14 w-14 bg-gray-800/50 rounded-2xl animate-pulse"></div>
+                        <div>
+                          <div className="h-5 w-24 bg-gray-700/50 rounded animate-pulse mb-2"></div>
+                          <div className="h-4 w-20 bg-gray-800/50 rounded animate-pulse mb-1"></div>
+                          <div className="h-3 w-16 bg-gray-800/50 rounded animate-pulse"></div>
+                        </div>
+                      </div>
+                      <div className="h-8 w-8 bg-gray-800/50 rounded-xl animate-pulse"></div>
+                    </div>
+
+                    {/* Skeleton Content */}
+                    <div className="space-y-3 mb-6">
+                      {Array.from({ length: 3 }).map((_, i) => (
+                        <div key={i} className="flex items-center">
+                          <div className="p-2 bg-gray-800/50 rounded-xl mr-3">
+                            <div className="h-4 w-4 bg-gray-700/50 rounded animate-pulse"></div>
+                          </div>
+                          <div className="h-4 flex-1 bg-gray-800/50 rounded animate-pulse"></div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Skeleton Rating */}
+                    <div className="mb-6">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="h-4 w-20 bg-gray-700/50 rounded animate-pulse"></div>
+                        <div className="h-6 w-12 bg-gray-800/50 rounded animate-pulse"></div>
+                      </div>
+                      <div className="h-4 w-full bg-gray-800/50 rounded animate-pulse"></div>
+                    </div>
+
+                    {/* Skeleton Buttons */}
+                    <div className="flex space-x-3">
+                      <div className="flex-1 h-10 bg-gray-800/50 rounded-xl animate-pulse"></div>
+                      <div className="h-10 w-20 bg-gray-800/50 rounded-xl animate-pulse"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

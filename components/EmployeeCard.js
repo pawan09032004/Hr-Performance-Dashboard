@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { Star, Bookmark, TrendingUp, Mail, MapPin, Phone } from 'lucide-react'
+import { Star, Bookmark, TrendingUp, Mail, MapPin, Phone, Calendar, Briefcase } from 'lucide-react'
 import { Button } from './ui/button'
 import { Badge } from './ui/badge'
 import { Card } from './ui/card'
@@ -42,6 +42,15 @@ export default function EmployeeCard({ employee }) {
     return 'bg-red-400/10 text-red-300 border-red-400/30'
   }
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'Active': return 'bg-green-400/10 text-green-300 border-green-400/30'
+      case 'Remote': return 'bg-blue-400/10 text-blue-300 border-blue-400/30'
+      case 'On Leave': return 'bg-orange-400/10 text-orange-300 border-orange-400/30'
+      default: return 'bg-gray-400/10 text-gray-300 border-gray-400/30'
+    }
+  }
+
   return (
     <div className="group relative">
       {/* Glow Effect */}
@@ -58,29 +67,40 @@ export default function EmployeeCard({ employee }) {
                     {employee.firstName[0]}{employee.lastName[0]}
                   </span>
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-gray-900"></div>
+                <div className={`absolute -bottom-1 -right-1 w-5 h-5 rounded-full border-2 border-gray-900 ${
+                  employee.status === 'Active' ? 'bg-green-400' :
+                  employee.status === 'Remote' ? 'bg-blue-400' : 'bg-orange-400'
+                }`}></div>
               </div>
               <div>
                 <h3 className="font-bold text-white text-lg group-hover:text-lime-400 transition-colors">
                   {employee.firstName} {employee.lastName}
                 </h3>
-                <p className="text-gray-400 text-sm font-medium">
+                <p className="text-lime-400 text-sm font-semibold">
+                  {employee.jobTitle}
+                </p>
+                <p className="text-gray-400 text-xs font-medium">
                   {employee.department}
                 </p>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => toggleBookmark(employee.id)}
-              className={`${
-                isBookmarked 
-                  ? 'text-yellow-400 hover:text-yellow-300' 
-                  : 'text-gray-500 hover:text-yellow-400'
-              } transition-all duration-300 hover:bg-yellow-400/10 rounded-xl`}
-            >
-              <Bookmark className={`h-5 w-5 ${isBookmarked ? 'fill-current' : ''}`} />
-            </Button>
+            <div className="flex flex-col items-end space-y-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => toggleBookmark(employee.id)}
+                className={`${
+                  isBookmarked 
+                    ? 'text-yellow-400 hover:text-yellow-300' 
+                    : 'text-gray-500 hover:text-yellow-400'
+                } transition-all duration-300 hover:bg-yellow-400/10 rounded-xl`}
+              >
+                <Bookmark className={`h-5 w-5 ${isBookmarked ? 'fill-current' : ''}`} />
+              </Button>
+              <Badge className={`${getStatusColor(employee.status)} border font-medium text-xs`}>
+                {employee.status}
+              </Badge>
+            </div>
           </div>
 
           {/* Contact Info */}
@@ -125,9 +145,27 @@ export default function EmployeeCard({ employee }) {
             </div>
           </div>
 
+          {/* Employee Details Grid */}
+          <div className="grid grid-cols-2 gap-3 mb-6">
+            <div className="flex items-center space-x-2 p-3 bg-gray-800/30 rounded-xl">
+              <Calendar className="h-4 w-4 text-blue-400" />
+              <div>
+                <p className="text-xs text-gray-400">Age</p>
+                <p className="text-sm font-semibold text-white">{employee.age}</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2 p-3 bg-gray-800/30 rounded-xl">
+              <Briefcase className="h-4 w-4 text-purple-400" />
+              <div>
+                <p className="text-xs text-gray-400">Experience</p>
+                <p className="text-sm font-semibold text-white">{employee.yearsExperience}y</p>
+              </div>
+            </div>
+          </div>
+
           {/* Additional Info */}
           <div className="flex items-center justify-between text-sm text-gray-400 mb-6 p-3 bg-gray-800/30 rounded-xl">
-            <span className="font-medium">Age: <span className="text-white">{employee.age}</span></span>
+            <span className="font-medium">Projects: <span className="text-lime-400">{employee.currentProjects} active</span></span>
             <span className="font-medium">ID: <span className="text-lime-400">#{employee.id}</span></span>
           </div>
 
