@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="h-full dark">
+    <html lang="en" className="h-full dark" data-scroll-behavior="smooth">
       <body className={`${inter.className} h-full bg-gradient-to-br from-gray-900 via-gray-800 to-black`}>
         <AppProvider>
           <div className="flex h-full">
