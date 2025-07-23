@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { useApp } from '../../context/AppContext'
-import { Bell, Search, Settings, User, Moon, Sun, Menu, LogOut, Shield, UserCircle } from 'lucide-react'
+import { Bell, User, Moon, Sun, Menu, LogOut, Shield, UserCircle } from 'lucide-react'
 import { Button } from '../ui/button'
 
 export default function Navbar() {
@@ -20,7 +20,6 @@ export default function Navbar() {
       <nav className="bg-gray-900/60 backdrop-blur-xl border-b border-gray-700/50 px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4 flex-1">
-            <div className="h-10 w-64 bg-gray-800/50 rounded-2xl animate-pulse"></div>
           </div>
           <div className="flex items-center space-x-3">
             <div className="h-10 w-10 bg-gray-800/50 rounded-xl animate-pulse"></div>
@@ -35,20 +34,11 @@ export default function Navbar() {
   return (
     <nav className="bg-gray-900/60 backdrop-blur-xl border-b border-gray-700/50 px-6 py-4">
       <div className="flex items-center justify-between">
-        {/* Left side - Search */}
+        {/* Left side */}
         <div className="flex items-center space-x-4 flex-1">
           <Button variant="ghost" size="sm" className="md:hidden text-gray-300 hover:text-white hover:bg-gray-800/50">
             <Menu className="h-5 w-5" />
           </Button>
-          
-          <div className="relative max-w-md w-full">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Quick search employees, departments..."
-              className="w-full pl-12 pr-4 py-3 border border-gray-600/50 rounded-2xl bg-gray-800/50 text-white placeholder-gray-400 focus:ring-2 focus:ring-lime-400/50 focus:border-lime-400/50 focus:bg-gray-800/70 transition-all duration-200"
-            />
-          </div>
         </div>
 
         {/* Right side - Actions */}
@@ -78,14 +68,6 @@ export default function Navbar() {
               <span className="absolute -top-1 -right-1 h-4 w-4 bg-gradient-to-r from-red-500 to-pink-500 rounded-full text-xs flex items-center justify-center shadow-lg">
                 <span className="text-white text-[10px] font-bold">3</span>
               </span>
-            </Button>
-          </div>
-
-          {/* Settings */}
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-green-400/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
-            <Button variant="ghost" size="sm" className="relative p-3 text-gray-300 hover:text-emerald-400 hover:bg-emerald-400/10 rounded-xl transition-all duration-300">
-              <Settings className="h-5 w-5" />
             </Button>
           </div>
 

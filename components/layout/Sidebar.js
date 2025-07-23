@@ -8,8 +8,7 @@ import {
   BarChart3, 
   UserPlus,
   Award,
-  Briefcase,
-  Settings
+  Briefcase
 } from 'lucide-react'
 import { Badge } from '../ui/badge'
 import { useApp } from '../../context/AppContext'
@@ -98,20 +97,7 @@ export default function Sidebar() {
           })}
         </nav>
 
-        {/* Bottom section */}
-        <div className="flex-shrink-0 p-4 border-t border-gray-700/50 mt-4">
-          <div className="relative group">
-            <Link
-              href="/settings"
-              className="group flex items-center px-4 py-3 text-sm font-semibold text-gray-300 rounded-2xl hover:bg-gray-800/50 hover:text-white transition-all duration-300 border border-transparent hover:border-gray-600/30"
-            >
-              <div className="p-2 bg-gray-800/50 rounded-xl mr-3 group-hover:bg-gray-700/50 transition-all duration-300">
-                <Settings className="h-5 w-5 text-gray-400 group-hover:text-gray-300" />
-              </div>
-              Settings
-            </Link>
-          </div>
-        </div>
+
       </div>
     </div>
   )

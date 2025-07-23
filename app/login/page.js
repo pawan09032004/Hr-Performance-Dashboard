@@ -217,11 +217,11 @@ export default function LoginPage() {
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-8">
+        {/* <div className="text-center mt-8">
           <p className="text-sm text-gray-500">
             Secure HR Dashboard • Built with Next.js & NextAuth.js
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   )
